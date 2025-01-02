@@ -78,5 +78,22 @@ Subsequently, we removed any unnecessary signals that had been pipelined in orde
 
 We acknowledged that adding registers throughout the pipeline would result in both a power and area tradeoff. However, we determined that this tradeoff was worthwhile in order to achieve a performance boost. Specifically, in the case of cache-based memory, we had to disable the clock to all registers, effectively freezing the pipeline, while cache interactions were processed. This approach allowed us to avoid unnecessary delays caused by waiting for memory access, improving overall system performance.
 
+## Performance
 
+Here is the performance of our design against some benchmark tests that were provided to us
 
+| Test Name    | No Cache | Cache   | Difference | % Change | Ratio       |
+|--------------|----------|---------|------------|----------|-------------|
+| cachetest.out| 2359232  | 4377780 | 2018548    | 85.56%   | 1.85559538  |
+| final.out    | 4441     | 9701    | 5260       | 118.44%  | 2.184417924 |
+| fib.out      | 4196     | 8976    | 4780       | 113.92%  | 2.139180172 |
+| sum.out      | 13678643 | 28082641| 2018548    | 105.30%  | 2.053028287 |
+| replace.out  | 13678661 | 28338923| 14660262   | 107.18%  | 2.071761483 |
+
+We achieved a post-PAR slack = 0.107 ns @ 20 ns clk (50 MHz). We estimate a power consumption of 23.2 mW from the post-PAR simulations for the critical path. 
+
+## Floorplan
+
+Here is the floorplan of our design. We estimate an area of around 1.18 sqmm for the entire design with the direct-mapped cache. 
+
+![cache](images/floorplan.png)
