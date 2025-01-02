@@ -45,7 +45,7 @@ The **MWB stage** includes:
 
 ## Branch Prediction
 
-We went with a simple branch-not-taken strategy. In case of a misprediction, we simply inserted a NOP and reloaded the previous PC and instruction. 
+We went with a simple branch-not-taken strategy. In case of a misprediction, we simply inserted a NOP (No-Operation) and reloaded the previous PC and instruction. 
 
 ## Cache
 
@@ -74,7 +74,7 @@ We implemented forwarding for 1-cycle and 2-cycle dependencies to minimize stall
 
 We began by pipelining all of our data path signals along with a few key control signals. This approach was implemented to ensure that, in case a signal was needed at any stage, we could efficiently feed it to the ALU or read/write addresses to/from the caches. The primary motivation was to prevent stalls that could arise from 1-cycle and 2-cycle dependencies. This strategy proved effective in reducing performance bottlenecks.
 
-Subsequently, we removed any unnecessary signals that had been pipelined in order to minimize power consumption and area usage. Since our design uses a 3-stage pipeline, we anticipated the possibility of a branch misprediction. In the event of a misprediction (where the default assumption was that the branch was not taken), we chose to pass a No-Operation (NOP) instruction rather than stalling for 2 cycles. After the NOP, we could reload the correct PC and instruction, as we had a copy of the previous values, thus ensuring minimal disruption to pipeline flow.
+Subsequently, we removed any unnecessary signals that had been pipelined in order to minimize power consumption and area usage. Since our design uses a 3-stage pipeline, we anticipated the possibility of a branch misprediction. In the event of a misprediction (where the default assumption was that the branch was not taken), we chose to pass a NOP instruction rather than stalling for 2 cycles. After the NOP, we could reload the correct PC and instruction, as we had a copy of the previous values, thus ensuring minimal disruption to pipeline flow.
 
 We acknowledged that adding registers throughout the pipeline would result in both a power and area tradeoff. However, we determined that this tradeoff was worthwhile in order to achieve a performance boost. Specifically, in the case of cache-based memory, we had to disable the clock to all registers, effectively freezing the pipeline, while cache interactions were processed. This approach allowed us to avoid unnecessary delays caused by waiting for memory access, improving overall system performance.
 
